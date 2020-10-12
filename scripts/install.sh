@@ -71,7 +71,7 @@ mkdir -p "$tmpdir" >> $logfile 2>&1
 sudo -E sh -c 'cat <<EOF >/etc/GeoIP.conf
 AccountID $accountid
 LicenseKey $licensekey
-EditionIDs GeoLite2-Country GeoLite2-City
+EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN
 EOF'
 # Install geoipupdate, but keep our configuration file
 sudo -E apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install geoipupdate >> $logfile 2>&1
