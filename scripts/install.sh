@@ -289,9 +289,7 @@ sudo tee -a /etc/logrotate.d/nginx > /dev/null <<EOT
     create 640 nginx adm
     sharedscripts
     postrotate
-            if [ -f /var/run/nginx.pid ]; then
-                    kill -USR1 `cat /var/run/nginx.pid`
-            fi
+        nginx -s reload
     endscript
 }
 EOT
