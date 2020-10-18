@@ -221,6 +221,7 @@ sudo -E sed -i '/default_type/a \
         auto_reload 60m;\
         $geoip2_metadata_city_build metadata build_epoch;\
         $geoip2_data_city_name city names en;\
+        $geoip2_data_state_code subdivisions 0 iso_code;\
     }\
 \
     map $geoip2_data_country_code $allowed_country {\
@@ -230,11 +231,12 @@ sudo -E sed -i '/default_type/a \
     }\
 \
     log_format main\
-        ''$remote_addr - $remote_user [$time_local] \"$request\" ''\
-        ''$status $body_bytes_sent \"$http_referer\" ''\
-        ''\"$http_user_agent\" \"$http_x_forwarded_for\" ''\
-        ''$request_time $upstream_response_time $pipe ''\
-        ''$geoip2_data_country_code'';' /etc/nginx/nginx.conf >> $logfile 2>&1
+        \x27$remote_addr - $remote_user [$time_local] \"$request\" \x27\
+        \x27$status $body_bytes_sent \"$http_referer\" \x27\
+        \x27\"$http_user_agent\" \"$http_x_forwarded_for\" \x27\
+        \x27$geoip2_data_city_name, $geoip2_data_state_code, $geoip2_data_country_code\x27;\
+\
+    access_log \/var\/log\/nginx\/access.log main;' /etc/nginx/nginx.conf >> $logfile 2>&1
 # Return 403 for blocked countries
 sudo -E awk '{print} /location/ && !n {print "            if ($allowed_country = no) {\n                return 403;\n            }"; n++}' /etc/nginx/nginx.conf > tmp
 sudo -E cp -p tmp /etc/nginx/nginx.conf >> $logfile 2>&1
