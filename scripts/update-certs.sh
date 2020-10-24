@@ -29,7 +29,7 @@ log(){
 
 # Update ca.cer
 if [ $(diff -q "$home"/.acme.sh/"$domain"/ca.cer /etc/ssl/certs/ca.cer) -n "" ]; then
-	log log "Updating ca.cer"
+	log "Updating ca.cer"
 	cp "$home"/.acme.sh/"$domain"/ca.cer /etc/ssl/certs
 	newcert=true
 fi
@@ -60,5 +60,5 @@ if [ "$newcert" = true ] ; then
 	log "Starting nginx..."
  	systemctl start nginx.service
 else
-	echo "No certificate updates"
+	log "No certificate updates"
 fi
