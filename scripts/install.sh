@@ -267,6 +267,11 @@ description=Small, but very powerful and efficient web server
 ports=80,443/tcp
 EOT
 
+# Allow ssh
+sudo -E ufw allow 'OpenSSH' >> $logfile 2>&1
+# Allow nginx
+sudo -E ufw allow 'Nginx Full' >> $logfile 2>&1
+
 log "Create dir structure..."
 # Remove .default files from /etc/nginx directory
 sudo -E rm /etc/nginx/*.default >> $logfile 2>&1

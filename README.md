@@ -47,3 +47,4 @@ Requires that install.sh has been run.
 * Redirect http to https by adding `return 301 https://$host$request_uri;` to http server section
 * Set your DNS CAA records to `letsencrypt.org`
 * Set permission on html root `sudo chmod -R 755 /etc/nginx/html/.`
+* After everything is working enable firewall `sudo ufw enable`
