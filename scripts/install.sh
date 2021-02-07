@@ -13,13 +13,13 @@
 #
 
 # nginx URL
-nginxurl="https://nginx.org/download/nginx-1.19.3.tar.gz"
+nginxurl="https://nginx.org/download/nginx-1.19.6.tar.gz"
 
 # PCRE URL
 pcreurl="https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz"
 
 # OpenSSL URL
-opensslurl="https://www.openssl.org/source/openssl-1.1.1h.tar.gz"
+opensslurl="https://www.openssl.org/source/openssl-1.1.1i.tar.gz"
 
 # Certificate Transparency module URL
 cturl="https://github.com/grahamedgecombe/nginx-ct.git"
