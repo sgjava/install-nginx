@@ -121,8 +121,6 @@ sudo -E sed -i '/#gzip  on;/a \
 \
 	ssl_stapling on;\
 	ssl_stapling_verify on;\
-	resolver 8.8.8.8 8.8.4.4 valid=300s;\
-	resolver_timeout 5s;\
 \
 	add_header Strict-Transport-Security "max-age=15768000; includeSubdomains; preload;";\
 	add_header Content-Security-Policy "default-src \x27none\x27; frame-ancestors \x27none\x27; script-src \x27self\x27; img-src \x27self\x27; style-src \x27self\x27; base-uri \x27self\x27; form-action \x27self\x27";\
