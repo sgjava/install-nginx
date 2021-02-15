@@ -20,6 +20,7 @@ The scripts allow:
 * Install cron to update any certificate changes
 * Install cron to update GeoIP databases automatically
 * Scores A+ on [SSL Server Test](https://www.ssllabs.com/ssltest)
+* Install DUC client if you use No-IP
 
 ## Download project
 * `cd ~/`
@@ -48,3 +49,8 @@ Requires that install.sh has been run.
 * Set your DNS CAA records to `letsencrypt.org`
 * Set permission on html root `sudo chmod -R 755 /etc/nginx/html/.`
 * After everything is working enable firewall `sudo ufw enable`
+
+## Install DUC client for No-IP
+If you use No-IP for DNS resolution this will set up DUC client to update your IP automatically.
+* `cd ~/install-nginx/scripts`
+* `./noip.sh`
