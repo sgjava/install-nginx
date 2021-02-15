@@ -61,6 +61,10 @@ Restart=always
 WantedBy=default.target
 EOT
 
+sudo -E systemctl daemon-reload >> $logfile 2>&1
+sudo -E systemctl enable noip2 >> $logfile 2>&1
+sudo -E systemctl start noip2 >> $logfile 2>&1
+
 log "Removing temp dir $tmpdir"
 rm -rf "$tmpdir" >> $logfile 2>&1
 
