@@ -4,7 +4,7 @@
 #
 # @author: sgoldsmith
 #
-# Update certs from "$home"/.acme.sh directory to /etc/ssl/certs andprovate key to /etc/ssl/private
+# Update certs from "$home"/.acme.sh directory to /etc/ssl/certs and provide key to /etc/ssl/private
 #
 # This script will be updated by ssl.sh.
 #
@@ -28,14 +28,14 @@ log(){
 }
 
 # Update ca.cer
-if [ $(diff -q "$home"/.acme.sh/"$domain"/ca.cer /etc/ssl/certs/ca.cer) -n "" ]; then
+if [[ $(diff -q "$home"/.acme.sh/"$domain"/ca.cer /etc/ssl/certs/ca.cer) != "" ]]; then
 	log "Updating ca.cer"
 	cp "$home"/.acme.sh/"$domain"/ca.cer /etc/ssl/certs
 	newcert=true
 fi
 
 # Update fullchain.cer
-if [ $(diff -q "$home"/.acme.sh/"$domain"/fullchain.cer /etc/ssl/certs/fullchain.cer) -n "" ]; then
+if [[ $(diff -q "$home"/.acme.sh/"$domain"/fullchain.cer /etc/ssl/certs/fullchain.cer) != "" ]]; then
 	log log "Updating fullchain.cer"
 	cp "$home"/.acme.sh/"$domain"/fullchain.cer /etc/ssl/certs
 	sh -c "/usr/local/src/ct-submit/ct-submit sabre.ct.comodo.com < "$home"/.acme.sh/codeferm.com/fullchain.cer > /etc/ssl/sct/comodo-sabre.sct"
@@ -47,14 +47,14 @@ if [ $(diff -q "$home"/.acme.sh/"$domain"/fullchain.cer /etc/ssl/certs/fullchain
 fi
 
 # Update private key
-if [ $(diff -q "$home"/.acme.sh/"$domain"/"$domain".key /etc/ssl/private/"$domain".key) -n "" ]; then
+if [[ $(diff -q "$home"/.acme.sh/"$domain"/"$domain".key /etc/ssl/private/"$domain".key) != "" ]]; then
 	log log "Updating $domain.key"
 	cp "$home"/.acme.sh/"$domain"/"$domain".key /etc/ssl/private
 	newcert=true
 fi
 
 # If any cert changed stop/start nginx service
-if [ "$newcert" = true ] ; then
+if [[ "$newcert" = true ]] ; then
 	log "Stopping nginx..."
  	systemctl stop nginx.service
 	log "Starting nginx..."
