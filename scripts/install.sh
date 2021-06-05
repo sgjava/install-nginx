@@ -49,7 +49,7 @@ arch=$(uname -m)
 tmpdir="$HOME/temp"
 
 # Cron related
-croncmd="sh -c \"date '+%Y-%m-%d %H:%M:%S' >> /home/servadmin/geoipupdate.log 2>&1 && geoipupdate -v -d /etc/nginx/geoip >> /home/servadmin/geoipupdate.log 2>&1\""
+croncmd="/usr/bin/sh -c \"date '+%Y-%m-%d %H:%M:%S' >> /home/servadmin/geoipupdate.log 2>&1 && geoipupdate -v -d /etc/nginx/geoip >> /home/servadmin/geoipupdate.log 2>&1\""
 cronjob="0 0 * * * $croncmd"
 
 # stdout and stderr for commands logged
