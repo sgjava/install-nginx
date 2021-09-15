@@ -49,8 +49,13 @@ arch=$(uname -m)
 tmpdir="$HOME/temp"
 
 # Cron related
-croncmd="/usr/bin/sh -c \"date '+%Y-%m-%d %H:%M:%S' >> /home/servadmin/geoipupdate.log 2>&1 && geoipupdate -v -d /etc/nginx/geoip >> /home/servadmin/geoipupdate.log 2>&1\""
-cronjob="0 0 * * * $croncmd"
+croncmd1="/usr/bin/sh -c \"date '+%Y-%m-%d %H:%M:%S' >> /home/servadmin/geoipupdate.log 2>&1 && geoipupdate -v -d /etc/nginx/geoip >> /home/servadmin/geoipupdate.log 2>&1\""
+cronjob1="0 0 * * * $croncmd1"
+# acme.sh runs at 25 0 * * * and required nginx stopped first (see crontab -l after install)
+croncmd2="/usr/bin/sh -c \"service nginx stop\""
+cronjob2="24 0 * * * $croncmd2"
+croncmd3="/usr/bin/sh -c \"service nginx start\""
+cronjob3="28 0 * * * $croncmd3"
 
 # stdout and stderr for commands logged
 logfile="$PWD/install.log"
@@ -81,7 +86,9 @@ sudo -E mkdir -p /etc/nginx/geoip >> $logfile 2>&1
 sudo -E geoipupdate -d /etc/nginx/geoip >> $logfile 2>&1
 
 # Add to crontab
-( sudo crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | sudo crontab -
+( sudo crontab -l | grep -v -F "$croncmd1" ; echo "$cronjob1" ) | sudo crontab -
+( sudo crontab -l | grep -v -F "$croncmd2" ; echo "$cronjob2" ) | sudo crontab -
+( sudo crontab -l | grep -v -F "$croncmd3" ; echo "$cronjob3" ) | sudo crontab -
 
 # Get directory name $1 = URL
 getdirname () {
